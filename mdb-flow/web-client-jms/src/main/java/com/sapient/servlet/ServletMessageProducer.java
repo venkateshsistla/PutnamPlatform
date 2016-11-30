@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sapient.shared.Employee;
 
-
 public class ServletMessageProducer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -51,10 +50,8 @@ public class ServletMessageProducer extends HttpServlet {
 			// 2. Sending ObjectMessage to the Queue
 			ObjectMessage objMsg = session.createObjectMessage();
 			Employee employee = new Employee();
-			employee.setId(2163);
 			employee.setName("Venkat");
 			employee.setDesignation("j Asociate");
-			employee.setSalary(1000);
 			objMsg.setObject(employee);
 			sender.send(objMsg);
 			out.println("2. Sent ObjectMessage to the Queue");
