@@ -13,7 +13,7 @@ import com.sapient.shared.Employee;
 
 @MessageDriven(activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-		@ActivationConfigProperty(propertyName = "destination", propertyValue = "JMSQueue") })
+		@ActivationConfigProperty(propertyName = "destination", propertyValue = "queueSampleQueue") })
 public class MDBBean implements MessageListener, ExceptionListener {
 	static QueueConnection queueConn = null;
 
