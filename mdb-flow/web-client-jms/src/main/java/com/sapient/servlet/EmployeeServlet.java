@@ -116,9 +116,7 @@ public class EmployeeServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		System.out.println("sent: " + objMsg);
-
+		System.out.println("Pushed into queue");
 		try {
 			queueConn.close();
 		} catch (JMSException e) {

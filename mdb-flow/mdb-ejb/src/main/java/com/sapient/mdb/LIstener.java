@@ -15,6 +15,10 @@ import javax.jms.QueueSession;
 import javax.jms.Session;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
 import com.sapient.shared.Employee;
 
@@ -51,16 +55,28 @@ public class LIstener implements MessageListener, ExceptionListener {
 	public void onMessage(Message message) {
 		if (message instanceof ObjectMessage) {
 			ObjectMessage msg = (ObjectMessage) message;
-			Employee employee;
+			Employee emp;
 			try {
-				employee = (Employee) msg.getObject();
+				emp = (Employee) msg.getObject();
 			} catch (JMSException e) {
 				// TODO Auto-generated catch block
 				throw new RuntimeException(e);
 			}
 			System.out.println("Employee Details: ");
-			System.out.println(employee.getName());
-			System.out.println(employee.getDesignation());
+			System.out.println(emp.getName());
+			System.out.println(emp.getDesignation());
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate");
+			EntityManager em = emf.createEntityManager();
+
+			EntityTransaction trans = em.getTransaction();
+			try {
+				trans.begin();
+				em.persist(emp);
+				trans.commit();
+			} catch (Exception e) {
+				trans.rollback();
+			}
+			emf.close();
 		}
 	}
 
